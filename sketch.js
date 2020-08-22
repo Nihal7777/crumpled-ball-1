@@ -3,7 +3,7 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
-var ground,line1,line2,line3,paperObject;
+var ground,line1,line2,line3,ball,dustbin;
 
 function preload()
 {
@@ -17,19 +17,14 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	//Create the Bodies Here.
-	ground=createSprite(400,680,800,10);
-	ground.shapeColor=color("yellow");
+	
+	ground=new Ground(400,690,800,20);
 
-	line1=createSprite(730,635,15,60);
-	line1.shapeColor=color("white");
+	dustbin=new Dustbin(630,670);
 
-	line2=createSprite(530,635,15,60);
-	line2.shapeColor=color("white");
+	ball=new Paper(50,670,30);
 
-	line3=createSprite(630,670,200,15);
-	line3.shapeColor=color("white");
-
+	
 
 
 	Engine.run(engine);
@@ -41,16 +36,19 @@ function draw() {
   rectMode(CENTER);
   background(0);
   
-  drawSprites();
+  ground.display();
+  dustbin.display();
+  ball.display();
 
-  function keyPressed(){
-	  if(keyCode === UP_ARROW){
-
-	Matter.Body.applyForce(paperObject.Body,paperObject.Body.position,{x:85,y:-85})	;
-	  }
-  }
- 
+  
 }
+function keyPressed(){
+	if(keyCode === UP_ARROW){
+
+  Matter.Body.applyForce(ball.body,ball.body.position,{x:200,y:-100})	;
+	}
+}
+
 
 
 
